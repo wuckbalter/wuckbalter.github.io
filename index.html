@@ -1110,7 +1110,7 @@ a{ color: var(--accent-2); }
 .pair-spec-inset p{ margin:0; font-size:max(4pt, calc(12pt + var(--spec-bump, 0pt) + var(--sd, 0pt)));
   line-height:calc(max(4pt, calc(12pt + var(--spec-bump, 0pt) + var(--sd, 0pt))) * 1.3333 * var(--lh, 1)); }
 .pair-spec-inset p.pair-spec-attrib{ position:absolute; right:10pt; bottom:8pt; white-space:nowrap; margin:0; font-family:ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
-  font-size:6pt; line-height:1.3; letter-spacing:.06em; text-transform:uppercase; text-align:right; color:var(--spec-dim); }
+  font-size:5pt; line-height:1.3; letter-spacing:.06em; text-transform:uppercase; text-align:right; color:var(--spec-dim); }  /* 5pt = same as every .pair-spec-caption */
 .pair-spec-quote p{ font-style:italic; font-size:max(4pt, calc(9pt + var(--spec-bump, 0pt) + var(--sd, 0pt))); line-height:calc(max(4pt, calc(9pt + var(--spec-bump, 0pt) + var(--sd, 0pt))) * 1.6667 * var(--lh, 1)); font-weight:700; margin:0; }
 /* Dot-leader index (term ........ definition): an overflow:hidden flex child
    whose ::after repeats enough dots to fill whatever is left after the two
@@ -1855,7 +1855,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     </div>
     <div class="spacer"></div>
     <div class="recent-wrap" id="recentWrap">
-      <button class="btn" id="recentBtn" type="button" title="Recently connected folders (Alt+click: refresh the Google Fonts list)">Recent ▾</button>
+      <button class="btn" id="recentBtn" type="button" title="Recently connected folders">Recent ▾</button>
       <div class="recent-pop hidden" id="recentPop">
         <div class="rp-title">Recently connected folders</div>
         <div id="recentList"></div>
@@ -1894,7 +1894,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
         </div>
         <div class="sidebar-tabs" id="sidebarTabs" role="tablist" aria-label="Font source">
           <button class="sidebar-tab" id="tabLocal" type="button" role="tab" aria-selected="true" aria-controls="fontList" tabindex="0">Local</button>
-          <button class="sidebar-tab tab-google" id="tabGoogle" type="button" role="tab" aria-selected="false" aria-controls="googleFontList" tabindex="-1" aria-label="Google Fonts" title="Google Fonts"><svg class="tab-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 269.59 81.59" aria-hidden="true" focusable="false"><path d="M 31.32,63.35 C 48.97,63.52 60.99,51.67 60.99,33.43 Q 61,31.14 60.56,28.35 H 31.2 v 8.76 H 51.8 C 50.7,48.58 42.62,54.55 31.53,54.55 19.09,54.55 9.57,45.2 9.57,31.61 9.57,18.2 18.67,8.84 31.53,8.84 c 6.48,0 11.26,2 16.04,6.9 L 53.71,9.31 C 48.33,3.01 40.55,0 31.41,0 13.7,0 0,13.29 0,31.48 c 0,17.4 13.25,31.7 31.32,31.87" fill="#3186ff"/><path d="m 88.2,63.35 c 13.2,0 22.77,-9.69 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#fc413d"/><path d="m 137.42,63.35 c 13.29,0 22.77,-9.73 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#ffbe00"/><path d="m 185.37,81.59 q 21.51,0 21.5,-24.63 V 18.79 h -8.8 v 5.37 h -0.17 c -2.75,-4.27 -7.96,-6.68 -13.84,-6.68 -12.7,0 -20.44,9.69 -20.44,22.6 0,12.86 7.53,22.34 20.78,22.34 6.52,0 11.34,-3.72 13.37,-6.77 h 0.3 v 3.94 c 0,8.67 -4.49,13.8 -12.82,13.8 -5.46,0 -9.1,-3.01 -11.77,-8.05 l -7.96,3.52 c 4.2,8.84 10.16,12.73 19.85,12.73 m 0,-27.55 c -7.74,0 -12.7,-5.71 -12.7,-14.22 0,-8.2 4.92,-14.13 12.75,-14.13 7.83,0 12.65,5.5 12.65,14.09 0,8.68 -5.08,14.26 -12.7,14.26" fill="#3186ff"/><path d="m 222.91,1.35 h -9.22 v 60.6 h 9.22 z" fill="#00af57"/><path d="m 250.17,63.27 a 22.1,22.1 0 0 0 19,-10.54 l -6.86,-4.49 c -3,4.2 -7.1,6.6 -11.72,6.6 a 13.6,13.6 0 0 1 -11.93,-7.23 l 30.93,-13.12 a 20,20 0 0 0 -0.84,-3.22 c -3.69,-9.48 -10.12,-13.8 -18.8,-13.8 -13.24,0 -22.25,9.66 -22.25,23.03 0,13.67 9.47,22.77 22.47,22.77 m -13.5,-22.81 v -0.51 c 0,-8.76 5.03,-14.64 12.95,-14.64 3.76,0 7.15,1.69 9.44,5.67 z" fill="#fc413d"/></svg></button>
+          <button class="sidebar-tab tab-google" id="tabGoogle" type="button" role="tab" aria-selected="false" aria-controls="googleFontList" tabindex="-1" aria-label="Google Fonts" title="Google Fonts (Ctrl+click: update the font list from GitHub; Alt+click: revert to the built-in list)"><svg class="tab-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 269.59 81.59" aria-hidden="true" focusable="false"><path d="M 31.32,63.35 C 48.97,63.52 60.99,51.67 60.99,33.43 Q 61,31.14 60.56,28.35 H 31.2 v 8.76 H 51.8 C 50.7,48.58 42.62,54.55 31.53,54.55 19.09,54.55 9.57,45.2 9.57,31.61 9.57,18.2 18.67,8.84 31.53,8.84 c 6.48,0 11.26,2 16.04,6.9 L 53.71,9.31 C 48.33,3.01 40.55,0 31.41,0 13.7,0 0,13.29 0,31.48 c 0,17.4 13.25,31.7 31.32,31.87" fill="#3186ff"/><path d="m 88.2,63.35 c 13.2,0 22.77,-9.69 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#fc413d"/><path d="m 137.42,63.35 c 13.29,0 22.77,-9.73 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#ffbe00"/><path d="m 185.37,81.59 q 21.51,0 21.5,-24.63 V 18.79 h -8.8 v 5.37 h -0.17 c -2.75,-4.27 -7.96,-6.68 -13.84,-6.68 -12.7,0 -20.44,9.69 -20.44,22.6 0,12.86 7.53,22.34 20.78,22.34 6.52,0 11.34,-3.72 13.37,-6.77 h 0.3 v 3.94 c 0,8.67 -4.49,13.8 -12.82,13.8 -5.46,0 -9.1,-3.01 -11.77,-8.05 l -7.96,3.52 c 4.2,8.84 10.16,12.73 19.85,12.73 m 0,-27.55 c -7.74,0 -12.7,-5.71 -12.7,-14.22 0,-8.2 4.92,-14.13 12.75,-14.13 7.83,0 12.65,5.5 12.65,14.09 0,8.68 -5.08,14.26 -12.7,14.26" fill="#3186ff"/><path d="m 222.91,1.35 h -9.22 v 60.6 h 9.22 z" fill="#00af57"/><path d="m 250.17,63.27 a 22.1,22.1 0 0 0 19,-10.54 l -6.86,-4.49 c -3,4.2 -7.1,6.6 -11.72,6.6 a 13.6,13.6 0 0 1 -11.93,-7.23 l 30.93,-13.12 a 20,20 0 0 0 -0.84,-3.22 c -3.69,-9.48 -10.12,-13.8 -18.8,-13.8 -13.24,0 -22.25,9.66 -22.25,23.03 0,13.67 9.47,22.77 22.47,22.77 m -13.5,-22.81 v -0.51 c 0,-8.76 5.03,-14.64 12.95,-14.64 3.76,0 7.15,1.69 9.44,5.67 z" fill="#fc413d"/></svg></button>
         </div>
         <div class="gf-filter" id="gfChips" hidden><select id="gfCategorySelect" aria-label="Google Fonts category"></select></div>
       </div>
@@ -4379,6 +4379,10 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     }).then(function(loaded){
       document.fonts.add(loaded);
       v.face = loaded;
+      // The background name scan may have corrected this file's weight/italic (applyNameSubStyle) while the face was still
+      // loading and not yet reachable through v.face: bring the registered face in line.
+      if(loaded.weight !== String(v.weight)){ try { loaded.weight = String(v.weight); } catch(e){} }
+      if(loaded.style !== v.style){ try { loaded.style = v.style; } catch(e){} }
       v.status = "loaded";
       g.loadedCount++;
       updateListItem(g);
@@ -5225,12 +5229,18 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
 
     var prose = $("stageProse");
     prose.style.fontFamily = "'" + g.family + "'";
-    if(g.proseShortIdx === undefined) g.proseShortIdx = 0;
-    if(g.proseLongIdx === undefined) g.proseLongIdx = 0;
+    if(g.proseShortIdx === undefined) g.proseShortIdx = proseStartShort;
+    if(g.proseLongIdx === undefined) g.proseLongIdx = proseStartLong;
     renderProsePick("short");
     renderProsePick("long");
     $("proseDialogue").innerHTML = PROSE_DIALOGUE_HTML;
   }
+
+  // Where every font starts in the Prose (short) / Prose (long) pools: one random passage per pool, drawn once per page
+  // load (not "the first entry"), so each load opens on something different while all fonts shown in a session start on
+  // the same passage (fair for comparing). The shuffle buttons still step on from there.
+  var proseStartShort = Math.floor(Math.random() * PROSE_SHORT_POOL.length);
+  var proseStartLong = Math.floor(Math.random() * PROSE_LONG_POOL.length);
 
   // Shared by renderStage() (initial paint) and the shuffle buttons (re-paint
   // after picking a new index) so the two never drift out of sync with what
@@ -5752,7 +5762,17 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     if(opts.focus) $(tab === "google" ? "tabGoogle" : "tabLocal").focus();
   }
   $("tabLocal").addEventListener("click", function(){ setSidebarTab("local"); });
-  $("tabGoogle").addEventListener("click", function(){ setSidebarTab("google"); });
+  // Ctrl (or Cmd) + click the Google tab: update the family list from GitHub (refreshGoogleList); Alt + click: revert to
+  // the list built into this file (revertGoogleList). Neither switches tabs; the result shows in the status line.
+  $("tabGoogle").addEventListener("click", function(e){
+    if(e.altKey){ e.preventDefault(); revertGoogleList(); return; }
+    if(e.ctrlKey || e.metaKey){ e.preventDefault(); refreshGoogleList(); return; }
+    setSidebarTab("google");
+  });
+  // On macOS Ctrl+click is a right-click (contextmenu, no click): treat it as the same update gesture.
+  $("tabGoogle").addEventListener("contextmenu", function(e){
+    if(e.ctrlKey){ e.preventDefault(); refreshGoogleList(); }
+  });
   $("sidebarTabs").addEventListener("keydown", function(e){
     if(e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Home" || e.key === "End"){
       e.preventDefault();
@@ -5784,7 +5804,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   buildGoogleGroups();
   try { var savedCat = localStorage.getItem("gfCategory"); if(GF_CHIPS.some(function(c){ return c[0] === savedCat; })) gfCategory = savedCat; } catch(e){}
   buildGfChips();
-  // ---------- Google Fonts: refresh the family list (Alt+click on Recent) ----------
+  // ---------- Google Fonts: update / revert the family list (Ctrl+click / Alt+click on the Google tab) ----------
   // The embedded list is built offline by tools/build-google-list.py from the google/fonts repo. This finds the
   // families added to that repo since, with the same source and rules: it lists the family folders of ofl/, apache/
   // and ufl/ through the GitHub API (a handful of requests: the folder names only), and for each folder the list does
@@ -5974,6 +5994,24 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       gfNote("Couldn\u2019t refresh the Google Fonts list (" + why + "). Kept the current list.", 8000);
     }).then(function(){ gfRefreshing = false; });
   }
+  // Back to the list built into this file: forget the stored refresh and merge the embedded records over the current list
+  // (same group objects for every family both lists share, so nothing on screen reloads; families that only the refresh
+  // added disappear unless a pane is showing one, which then goes at the next reload).
+  function revertGoogleList(){
+    if(gfRefreshing){ gfNote("A Google Fonts list update is still running\u2026 try again when it finishes.", 5000); return; }
+    var before = googleGroups.length;
+    var hadStored = false;
+    function done(){
+      var stat = applyGoogleRecords(GOOGLE_FAMILIES);
+      var gone = stat.removed;
+      var kept = googleGroups.length - GOOGLE_FAMILIES.length;
+      if(!hadStored && !gone && !stat.changed && kept === 0) gfNote("Already using the built-in Google Fonts list (" + googleGroups.length.toLocaleString() + " families).", 6000);
+      else gfNote("Reverted to the built-in Google Fonts list: " + googleGroups.length.toLocaleString() + " families" + (gone ? " (\u2212" + gone + " added by an update)" : "") +
+        (kept > 0 ? " (" + kept + " kept while on screen)" : ""), 8000);
+    }
+    if(!gfIdbOk()){ done(); return; }
+    idbGet("gflist").then(function(r){ hadStored = !!r; return r ? idbDelete("gflist") : null; }).catch(function(){}).then(done);
+  }
   // After load: rememberOk (the private-window check) is only settled once the script has run and storage.estimate() answered.
   setTimeout(gfLoadStoredList, 400);
   (function(){
@@ -6022,6 +6060,39 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       return nameBytes ? parseNameTable(nameBytes) : null;
     } catch(e){ return null; }
   }
+  // Weight / italic from the font's own style name (name ID 17, else 2), for files whose NAME didn't say it: the filename
+  // parser (parseNameTokens) only knows spelled-out words, so "Foo-Bd.otf", "Foo-Md.otf" or "Foo.ttf" come out as
+  // Regular. Reads the style name with the same idea (compound words first, spaces/hyphens ignored). Conservative by
+  // design: a style name that says Regular (or nothing) never overrides the filename, because name ID 2 is only
+  // Regular/Italic/Bold/Bold Italic and says "Regular" for the Light/Medium files of many families; and italic is only
+  // ever added, never removed.
+  function parseStyleName(sub){
+    var t = String(sub || "").toLowerCase().replace(/[\s_\-]+/g, ""), w = null;
+    if(/(extra|ultra|x)light/.test(t)) w = 200;
+    else if(/(extra|ultra)bold/.test(t)) w = 800;
+    else if(/(semi|demi)bold/.test(t)) w = 600;
+    else if(/(extra|ultra)black|ultraheavy/.test(t)) w = 900;
+    else if(/thin|hairline/.test(t)) w = 100;
+    else if(/light/.test(t)) w = 300;
+    else if(/medium/.test(t)) w = 500;
+    else if(/bold/.test(t)) w = 700;
+    else if(/black|heavy/.test(t)) w = 900;
+    return { weight: w, italic: /italic|oblique/.test(t) };
+  }
+  function applyNameSubStyle(v){
+    if(!v.nameSub) return false;
+    var st = parseStyleName(v.nameSub), w = v.weight, style = v.style;
+    if(st.weight !== null && st.weight !== w) w = st.weight;
+    if(st.italic && style !== "italic") style = "italic";
+    if(w === v.weight && style === v.style) return false;
+    var targets = [v];
+    if(v.fileGroup){ targets.push(v.fileGroup.variants[0]); v.fileGroup.display = v.fileGroup.parent.display + " " + fileLabel({ weight: w, style: style }); }
+    targets.forEach(function(t){
+      t.weight = w; t.style = style;
+      if(t.face){ try { t.face.weight = String(w); t.face.style = style; } catch(e){} }   // a face already registered keeps matching
+    });
+    return true;
+  }
   var famScanQueue = [], famScanActive = 0, famRegroupTimer = null;
   function queueFamilyScan(variants){
     variants.forEach(function(v){ famScanQueue.push(v); });
@@ -6032,7 +6103,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       (function(v){
         famScanActive++;
         getFileForVariant(v).then(readNameInfoFromFile).then(function(info){
-          if(info){ v.nameFamily = info.family || null; v.nameSub = info.subfamily || null; }
+          if(info){ v.nameFamily = info.family || null; v.nameSub = info.subfamily || null; applyNameSubStyle(v); }
         }).catch(function(){}).then(function(){
           famScanActive--;
           scheduleFamilyRegroup(famScanQueue.length === 0 && famScanActive === 0);
@@ -6573,7 +6644,6 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   // ---------- Recent-folders popover ----------
   $("recentBtn").addEventListener("click", function(e){
     e.stopPropagation();
-    if(e.altKey){ closeRecentPop(); refreshGoogleList(); return; }   // Alt+click: refresh the Google Fonts list
     $("recentPop").classList.toggle("hidden");
   });
   document.addEventListener("click", function(e){
@@ -7034,6 +7104,12 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       resizer.classList.remove("dragging");
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
+    });
+    // Double-click the divider: back to an even 50/50 split, forgetting the saved one (like the sidebar and code-block handles).
+    resizer.addEventListener("dblclick", function(e){
+      applyCompareSplit(50);
+      try { localStorage.removeItem("compareSplit"); } catch(err){}
+      e.preventDefault();
     });
     resizer.addEventListener("keydown", function(e){
       var current = parseFloat(stagePaneMain.style.flex) || 50;
