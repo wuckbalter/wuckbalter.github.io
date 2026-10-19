@@ -787,7 +787,9 @@ a{ color: var(--accent-2); }
 /* On: a light tile from the colorscheme (--g-tile, set in applyScheme; white without a scheme). The shared pressed style fills with the accent, which would tint the logo's colors. Accent border. */
 .btn.pair-source-btn[aria-pressed="true"]{ background:var(--g-tile, #fff); border-color:var(--accent); }
 .pair-swap-col{ display:flex; flex-direction:column; align-items:stretch; gap:4px; margin:0 8px; }
-#pairSwapFontsBtn, #pairCopyToBBtn, #pairCopyToABtn{ margin:0; font-size: calc(13px + 4pt); }
+#pairSwapFontsBtn, #pairCopyToBBtn, #pairCopyToABtn{ margin:0; font-size: calc(13px + 4pt); border:1px solid color-mix(in srgb, var(--text) 40%, transparent); border-radius:6px; }
+#pairSwapFontsBtn:hover, #pairCopyToBBtn:hover, #pairCopyToABtn:hover{ border-color: var(--accent-2); }
+#pairCopyToBBtn[aria-pressed="true"], #pairCopyToABtn[aria-pressed="true"]{ border-color: var(--accent); }
 /* 700-1200px-ish centering trade-off (see claude.md) — flex-wrap decides
    per-item which line each of Size/.pair-header-fonts/Line lands on, and in
    a content-dependent middle band some wrap while others don't, leaving
@@ -1380,6 +1382,17 @@ input[type=file]{ display:none; }
 .sidebar-tab[aria-selected="true"] .tab-g-logo{ filter:none; opacity:1; }
 .gf-filter{ padding:6px 0 2px; }
 .gf-filter[hidden]{ display:none; }
+.gf-cat-btn{ display:flex; align-items:center; justify-content:space-between; gap:6px; width:100%; box-sizing:border-box; font-size:12px; padding:3px 6px;
+  background:var(--surface-alt); color:var(--text); border:1px solid var(--border); border-radius:4px; cursor:pointer; text-align:left; }
+.gf-cat-btn:hover{ border-color:var(--accent); }
+.gf-cat-btn .gf-cat-label{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gf-cat-btn::after{ content:"\25BE"; flex:0 0 auto; color:var(--text-dim); }
+.gf-cat-panel{ margin-top:3px; padding:3px 4px; border:1px solid var(--border); border-radius:4px; background:var(--surface-alt); }
+.gf-cat-panel[hidden]{ display:none; }
+.gf-cat-panel label{ display:flex; align-items:center; gap:6px; padding:2px 2px; font-size:12px; cursor:pointer; border-radius:3px; }
+.gf-cat-panel label:hover{ background:color-mix(in srgb, var(--accent) 15%, transparent); }
+.gf-cat-panel input{ margin:0; }
+.gf-cat-panel .gf-cat-n{ margin-left:auto; color:var(--text-dim); }
 .gf-filter select{ display:block; width:100%; max-width:none; box-sizing:border-box; font-size:12px; padding:3px 6px; }   /* fills the panel and follows its width (the global select rule caps at 220px) */
 .sidebar-tab:focus-visible{ outline:2px solid var(--accent-2); outline-offset:-2px; border-radius:4px; }
 .sidebar-resizer{ width:5px; flex:0 0 auto; cursor:col-resize; background:transparent; }
@@ -1617,6 +1630,9 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
 .stage-header-sliders{ display:flex; align-items:center; justify-content:space-between; column-gap:12px; min-width:0; }
 .stage-header-sliders .slider-group{ flex:0 1 auto; min-width:0; }
 .stage-header-sliders .slider-group input[type=range]{ flex:0 1 auto; min-width:30px; }
+/* Too narrow for the sliders (see wireSliderRow): hide them and keep label, value box (click to type; scroll wheel steps it) and steppers. */
+.stage-header-sliders.compact .slider-group input[type=range]{ display:none; }
+.stage-header-sliders .slider-group .val{ cursor:ns-resize; }
 .stage-scroll{ flex:1; overflow:auto; }
 .stage-content{ min-height:100%; background: var(--cm-bg, var(--surface)); color: var(--cm-fg, var(--text)); }
 .stage-main{ border-bottom: 1px solid var(--border); position:relative;
@@ -1894,9 +1910,9 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
         </div>
         <div class="sidebar-tabs" id="sidebarTabs" role="tablist" aria-label="Font source">
           <button class="sidebar-tab" id="tabLocal" type="button" role="tab" aria-selected="true" aria-controls="fontList" tabindex="0">Local</button>
-          <button class="sidebar-tab tab-google" id="tabGoogle" type="button" role="tab" aria-selected="false" aria-controls="googleFontList" tabindex="-1" aria-label="Google Fonts" title="Google Fonts (Ctrl+click: update the font list from GitHub; Alt+click: revert to the built-in list)"><svg class="tab-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 269.59 81.59" aria-hidden="true" focusable="false"><path d="M 31.32,63.35 C 48.97,63.52 60.99,51.67 60.99,33.43 Q 61,31.14 60.56,28.35 H 31.2 v 8.76 H 51.8 C 50.7,48.58 42.62,54.55 31.53,54.55 19.09,54.55 9.57,45.2 9.57,31.61 9.57,18.2 18.67,8.84 31.53,8.84 c 6.48,0 11.26,2 16.04,6.9 L 53.71,9.31 C 48.33,3.01 40.55,0 31.41,0 13.7,0 0,13.29 0,31.48 c 0,17.4 13.25,31.7 31.32,31.87" fill="#3186ff"/><path d="m 88.2,63.35 c 13.2,0 22.77,-9.69 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#fc413d"/><path d="m 137.42,63.35 c 13.29,0 22.77,-9.73 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#ffbe00"/><path d="m 185.37,81.59 q 21.51,0 21.5,-24.63 V 18.79 h -8.8 v 5.37 h -0.17 c -2.75,-4.27 -7.96,-6.68 -13.84,-6.68 -12.7,0 -20.44,9.69 -20.44,22.6 0,12.86 7.53,22.34 20.78,22.34 6.52,0 11.34,-3.72 13.37,-6.77 h 0.3 v 3.94 c 0,8.67 -4.49,13.8 -12.82,13.8 -5.46,0 -9.1,-3.01 -11.77,-8.05 l -7.96,3.52 c 4.2,8.84 10.16,12.73 19.85,12.73 m 0,-27.55 c -7.74,0 -12.7,-5.71 -12.7,-14.22 0,-8.2 4.92,-14.13 12.75,-14.13 7.83,0 12.65,5.5 12.65,14.09 0,8.68 -5.08,14.26 -12.7,14.26" fill="#3186ff"/><path d="m 222.91,1.35 h -9.22 v 60.6 h 9.22 z" fill="#00af57"/><path d="m 250.17,63.27 a 22.1,22.1 0 0 0 19,-10.54 l -6.86,-4.49 c -3,4.2 -7.1,6.6 -11.72,6.6 a 13.6,13.6 0 0 1 -11.93,-7.23 l 30.93,-13.12 a 20,20 0 0 0 -0.84,-3.22 c -3.69,-9.48 -10.12,-13.8 -18.8,-13.8 -13.24,0 -22.25,9.66 -22.25,23.03 0,13.67 9.47,22.77 22.47,22.77 m -13.5,-22.81 v -0.51 c 0,-8.76 5.03,-14.64 12.95,-14.64 3.76,0 7.15,1.69 9.44,5.67 z" fill="#fc413d"/></svg></button>
+          <button class="sidebar-tab tab-google" id="tabGoogle" type="button" role="tab" aria-selected="false" aria-controls="googleFontList" tabindex="-1" aria-label="Google Fonts" title="Google Fonts (Ctrl+click: update list; Alt+click: built-in list)"><svg class="tab-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 269.59 81.59" aria-hidden="true" focusable="false"><path d="M 31.32,63.35 C 48.97,63.52 60.99,51.67 60.99,33.43 Q 61,31.14 60.56,28.35 H 31.2 v 8.76 H 51.8 C 50.7,48.58 42.62,54.55 31.53,54.55 19.09,54.55 9.57,45.2 9.57,31.61 9.57,18.2 18.67,8.84 31.53,8.84 c 6.48,0 11.26,2 16.04,6.9 L 53.71,9.31 C 48.33,3.01 40.55,0 31.41,0 13.7,0 0,13.29 0,31.48 c 0,17.4 13.25,31.7 31.32,31.87" fill="#3186ff"/><path d="m 88.2,63.35 c 13.2,0 22.77,-9.69 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#fc413d"/><path d="m 137.42,63.35 c 13.29,0 22.77,-9.73 22.77,-23.15 0,-13.2 -9.35,-22.98 -22.77,-22.98 -12.7,0 -22.68,9.02 -22.68,22.98 0,13.33 9.43,23.15 22.68,23.15 m 0,-8.04 c -8.04,0 -13.67,-6.6 -13.67,-15.1 0,-8.5 5.93,-14.95 13.67,-14.95 8.17,0 13.67,6.6 13.67,14.94 0,8.64 -5.63,15.11 -13.67,15.11" fill="#ffbe00"/><path d="m 185.37,81.59 q 21.51,0 21.5,-24.63 V 18.79 h -8.8 v 5.37 h -0.17 c -2.75,-4.27 -7.96,-6.68 -13.84,-6.68 -12.7,0 -20.44,9.69 -20.44,22.6 0,12.86 7.53,22.34 20.78,22.34 6.52,0 11.34,-3.72 13.37,-6.77 h 0.3 v 3.94 c 0,8.67 -4.49,13.8 -12.82,13.8 -5.46,0 -9.1,-3.01 -11.77,-8.05 l -7.96,3.52 c 4.2,8.84 10.16,12.73 19.85,12.73 m 0,-27.55 c -7.74,0 -12.7,-5.71 -12.7,-14.22 0,-8.2 4.92,-14.13 12.75,-14.13 7.83,0 12.65,5.5 12.65,14.09 0,8.68 -5.08,14.26 -12.7,14.26" fill="#3186ff"/><path d="m 222.91,1.35 h -9.22 v 60.6 h 9.22 z" fill="#00af57"/><path d="m 250.17,63.27 a 22.1,22.1 0 0 0 19,-10.54 l -6.86,-4.49 c -3,4.2 -7.1,6.6 -11.72,6.6 a 13.6,13.6 0 0 1 -11.93,-7.23 l 30.93,-13.12 a 20,20 0 0 0 -0.84,-3.22 c -3.69,-9.48 -10.12,-13.8 -18.8,-13.8 -13.24,0 -22.25,9.66 -22.25,23.03 0,13.67 9.47,22.77 22.47,22.77 m -13.5,-22.81 v -0.51 c 0,-8.76 5.03,-14.64 12.95,-14.64 3.76,0 7.15,1.69 9.44,5.67 z" fill="#fc413d"/></svg></button>
         </div>
-        <div class="gf-filter" id="gfChips" hidden><select id="gfCategorySelect" aria-label="Google Fonts category"></select></div>
+        <div class="gf-filter" id="gfChips" hidden><button type="button" class="gf-cat-btn" id="gfCatBtn" aria-haspopup="true" aria-expanded="false" title="Filter by category: check any number; none checked shows all"></button><div class="gf-cat-panel" id="gfCatPanel" role="group" aria-label="Google Fonts categories" hidden></div></div>
       </div>
       <ul class="font-list" id="fontList" role="tabpanel" aria-labelledby="tabLocal" hidden></ul>
       <ul class="font-list" id="googleFontList" role="tabpanel" aria-labelledby="tabGoogle" hidden></ul>
@@ -1970,7 +1986,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
               </div>
               <div class="slider-group ls">
                 <label for="lsRange">Char</label>
-                <input type="range" id="lsRange" data-role="ls" min="-15" max="15" step="1" value="0">
+                <input type="range" id="lsRange" data-role="ls" min="-30" max="50" step="1" value="0">
                 <span class="val" id="lsVal" data-role="ls-val">0.00em</span>
                 <div class="pair-stepper">
                   <button class="pair-step-btn" id="lsUpBtn" type="button" title="Increase letter spacing" aria-label="Letter spacing: increase">▲</button>
@@ -2029,7 +2045,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
                 </div>
                 <div class="slider-group">
                   <label for="pairLsRangeA">Char</label>
-                  <input type="range" id="pairLsRangeA" data-role="pair-ls-a" min="-15" max="15" step="1" value="0" title="Font A letter spacing">
+                  <input type="range" id="pairLsRangeA" data-role="pair-ls-a" min="-30" max="50" step="1" value="0" title="Font A letter spacing">
                   <span class="val" id="pairLsValA">+0.00em</span>
                   <div class="pair-stepper">
                     <button class="pair-step-btn" id="pairLsUpBtnA" type="button" title="Increase Font A letter spacing" aria-label="Font A letter spacing: increase">▲</button>
@@ -2102,7 +2118,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
                 </div>
                 <div class="slider-group">
                   <label for="pairLsRangeB">Char</label>
-                  <input type="range" id="pairLsRangeB" data-role="pair-ls-b" min="-15" max="15" step="1" value="0" title="Font B letter spacing">
+                  <input type="range" id="pairLsRangeB" data-role="pair-ls-b" min="-30" max="50" step="1" value="0" title="Font B letter spacing">
                   <span class="val" id="pairLsValB">+0.00em</span>
                   <div class="pair-stepper">
                     <button class="pair-step-btn" id="pairLsUpBtnB" type="button" title="Increase Font B letter spacing" aria-label="Font B letter spacing: increase">▲</button>
@@ -3176,7 +3192,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   var tabSearch = { local: "", google: "" };
   var tabScroll = { local: 0, google: 0 };
   var localStatusText = "No fonts yet";
-  var gfCategory = "all";   // category chip filter on the GOOGLE tab: all | sans | serif | mono | display | hand
+  var gfCategories = [];   // categories checked in the GOOGLE tab filter (sans | serif | mono | display | hand); empty = all shown
   var groupIndex = 0;
   var currentGroup = null;
   // Counts remembered folders whose startup auto-reconnect (initRecentFolders())
@@ -4374,14 +4390,14 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       loadedFile = file;
       var url = URL.createObjectURL(file);
       v.objectUrl = url;
-      var face = new FontFace(g.family, "url(\"" + url + "\")", { weight: String(v.weight), style: v.style });
+      var face = new FontFace(g.family, "url(\"" + url + "\")", { weight: faceWeight(v), style: v.style });
       return face.load();
     }).then(function(loaded){
       document.fonts.add(loaded);
       v.face = loaded;
       // The background name scan may have corrected this file's weight/italic (applyNameSubStyle) while the face was still
       // loading and not yet reachable through v.face: bring the registered face in line.
-      if(loaded.weight !== String(v.weight)){ try { loaded.weight = String(v.weight); } catch(e){} }
+      if(loaded.weight !== faceWeight(v)){ try { loaded.weight = faceWeight(v); } catch(e){} }
       if(loaded.style !== v.style){ try { loaded.style = v.style; } catch(e){} }
       v.status = "loaded";
       g.loadedCount++;
@@ -4683,9 +4699,26 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     return true;
   }
 
+  // One static tooltip for every row in either list: what Ctrl+click and Alt+click do (handleSidebarClick).
+  var FONT_ROW_TIP = "Ctrl+click: Set for compare pane / Set as Pair Font B\nAlt+click: set as app font";
+  // Tooltip for a family / group row: each file's path (local fonts) and weight, then the click hints.
+  function groupTip(groups){
+    var lines = [];
+    (groups || []).forEach(function(g){
+      ((g && g.variants) || []).forEach(function(v){
+        var p = v.origPath || v.origName, w = fileLabel(v);
+        lines.push(g && g.isGoogle ? w : (p ? p + "  (" + w + ")" : w));
+      });
+    });
+    var more = lines.length > 12 ? lines.length - 12 : 0;
+    lines = lines.slice(0, 12);
+    if(more) lines.push("\u2026and " + more + " more");
+    return (lines.length ? lines.join("\n") + "\n\n" : "") + FONT_ROW_TIP;
+  }
   function buildFontItem(g){
     var li = document.createElement("li");
     li.className = "font-item";
+    li.title = groupTip([g]);
     li.tabIndex = 0;
     li.setAttribute("role", "button");
     li.innerHTML = '<span class="dot pending"></span><span class="info"><div class="fname"></div>'
@@ -4715,7 +4748,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       display: m.display + " " + fileLabel(v),
       family: "pfp-" + (groupIndex++), variants: [{
         weight: v.weight, style: v.style, ext: v.ext, source: v.source, status: "pending",
-        objectUrl: null, face: null, origName: v.origName, origPath: v.origPath
+        objectUrl: null, face: null, origName: v.origName, origPath: v.origPath, wghtRange: v.wghtRange || null
       }], li: null, loadedCount: 0, isFile: true, parent: m };
     v.fileGroup = fg;
     return fg;
@@ -4725,7 +4758,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     var li = buildFontItem(fg);
     li.classList.add("file-row");
     li.querySelector(".fname").textContent = fileLabel(v);
-    li.title = v.origPath || v.origName;
+    li.title = (v.origPath || v.origName) + "  (" + fileLabel(v) + ")\n\n" + FONT_ROW_TIP;     // the file path and weight, then the click hints
     li.dataset.search = (familyName + " " + m.display).toLowerCase();
     fg.li = li;
     renderedFileGroups.push(fg);
@@ -4744,6 +4777,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   function buildExpandRow(cls, name, badge, sel, subUl, expandKey, expanded){
     var header = document.createElement("li");
     header.className = "font-item cluster-header " + cls + (expanded ? " expanded" : "");
+    header.title = FONT_ROW_TIP;
     header.tabIndex = 0;
     header.setAttribute("role", "button");
     header.innerHTML = '<span class="cluster-chevron">\u25b8</span>'
@@ -4808,6 +4842,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       subUl.hidden = !isExpanded;
       var hdr = buildExpandRow("family-header", familyTitle, totalFiles + (totalFiles === 1 ? " file" : " files"),
         defaultMember, subUl, cluster.key, isExpanded);
+      hdr.li.title = groupTip(cluster.members);
       hdr.li.dataset.search = (cluster.familyName + " " + defaultMember.display).toLowerCase();
 
       if(cluster.members.length === 1){
@@ -4832,6 +4867,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
           var vOpen = !!expandedClusters[m.key];
           vUl.hidden = !vOpen;
           var vr = buildExpandRow("variation-header", label, m.variants.length + " files", m, vUl, m.key, vOpen);
+          vr.li.title = groupTip([m]);
           vr.li.dataset.search = (cluster.familyName + " " + m.display).toLowerCase();
           m.subLi = vr.li;
           m.subChevronEl = vr.chevron;
@@ -4889,6 +4925,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
           r.dispatchEvent(new Event("input", { bubbles: true }));
         }
       });
+      if(typeof setWeightDefault === "function") setWeightDefault($("boldBtn"), g);   // B toggles between the font's own weight and bold
     }
     syncActiveHighlight();
     touchLRU(g);
@@ -5458,12 +5495,13 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
         subUl.hidden = !open;
         var hdr = buildExpandRow("family-header", g.display, specs.length + " styles", g, subUl, g.key, open);
         li = hdr.li; g.clusterChevronEl = hdr.chevron;
+        li.title = specs.map(function(sp){ return googleFileGroup(g, sp).display; }).join("\n") + "\n\n" + FONT_ROW_TIP;
         specs.forEach(function(sp){
           var fg = googleFileGroup(g, sp), fli = buildFontItem(fg);
           fli.classList.add("file-row");
+          fli.title = fg.display + "\n\n" + FONT_ROW_TIP;               // the weight name (e.g. "Inter Light"), then the click hints
           fli.querySelector(".fname").textContent = fileLabel(fg.variants[0]);
           fli.querySelector(".fmeta").textContent = googleFileMeta(fg);
-          fli.title = fg.display;
           fg.li = fli;
           subUl.appendChild(fli);
         });
@@ -5485,7 +5523,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     var q = tabSearch.google.trim().toLowerCase(), shown = 0;
     googleGroups.forEach(function(g){
       if(!g.li) return;
-      var match = (!q || g.li.dataset.search.indexOf(q) !== -1) && (gfCategory === "all" || g.gf.category === gfCategory);
+      var match = (!q || g.li.dataset.search.indexOf(q) !== -1) && (!gfCategories.length || gfCategories.indexOf(g.gf.category) !== -1);
       g.li.style.display = match ? "" : "none";
       if(g.subUl) g.subUl.style.display = match ? "" : "none";
       if(match) shown++;
@@ -5496,7 +5534,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     if(gfNoteText){ sidebarStatus.textContent = gfNoteText; return; }
     if(sidebarTab !== "google"){ sidebarStatus.textContent = localStatusText; return; }
     var total = googleGroups.length, q = tabSearch.google.trim();
-    sidebarStatus.textContent = ((q || gfCategory !== "all") && shownGoogle !== undefined)
+    sidebarStatus.textContent = ((q || gfCategories.length) && shownGoogle !== undefined)
       ? shownGoogle + " of " + total + " families shown"
       : "Google Fonts \u2014 " + total + " families" + (gfOffline ? " (offline)" : "");
   }
@@ -5779,30 +5817,52 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       setSidebarTab((e.key === "ArrowLeft" || e.key === "Home") ? "local" : "google", { focus: true });
     }
   });
-  // Category dropdown (GOOGLE tab only): one value at a time, counts are totals for the whole list.
-  var GF_CHIPS = [["all", "All"], ["sans", "Sans Serif"], ["serif", "Serif"], ["mono", "Monospace"], ["display", "Display"], ["hand", "Handwriting"]];
-  var gfChipsEl = $("gfChips"), gfCategorySelect = $("gfCategorySelect");   // gfChipsEl is the wrapper the tab switch shows/hides
-  function buildGfChips(){
-    var counts = { all: googleGroups.length };
-    googleGroups.forEach(function(g){ counts[g.gf.category] = (counts[g.gf.category] || 0) + 1; });
-    gfCategorySelect.innerHTML = "";
-    GF_CHIPS.forEach(function(c){
-      if(c[0] !== "all" && !counts[c[0]]) return;
-      var o = document.createElement("option");
-      o.value = c[0]; o.textContent = c[1] + " (" + counts[c[0]].toLocaleString() + ")";
-      gfCategorySelect.appendChild(o);
-    });
-    gfCategorySelect.value = gfCategory;
+  // Category filter (GOOGLE tab only): a button that opens a checkbox list; any number can be checked, none checked = all.
+  // Counts are totals for the whole list.
+  var GF_CHIPS = [["sans", "Sans Serif"], ["serif", "Serif"], ["mono", "Monospace"], ["display", "Display"], ["hand", "Handwriting"]];
+  var gfChipsEl = $("gfChips"), gfCatBtn = $("gfCatBtn"), gfCatPanel = $("gfCatPanel");   // gfChipsEl is the wrapper the tab switch shows/hides
+  function syncGfCatBtn(){
+    var names = GF_CHIPS.filter(function(c){ return gfCategories.indexOf(c[0]) !== -1; }).map(function(c){ return c[1]; });
+    gfCatBtn.innerHTML = "";
+    var sp = document.createElement("span"); sp.className = "gf-cat-label";
+    sp.textContent = names.length ? names.join(", ") : "ALL";
+    sp.style.textAlign = names.length ? "" : "center";
+    gfCatBtn.appendChild(sp);
   }
-  function setGfCategory(cat){
-    gfCategory = cat;
-    try { localStorage.setItem("gfCategory", cat); } catch(e){}
-    if(gfCategorySelect.value !== cat) gfCategorySelect.value = cat;
+  function buildGfChips(){
+    var counts = {};
+    googleGroups.forEach(function(g){ counts[g.gf.category] = (counts[g.gf.category] || 0) + 1; });
+    gfCatPanel.innerHTML = "";
+    GF_CHIPS.forEach(function(c){
+      if(!counts[c[0]]) return;
+      var lab = document.createElement("label"), cb = document.createElement("input");
+      cb.type = "checkbox"; cb.value = c[0]; cb.checked = gfCategories.indexOf(c[0]) !== -1;
+      var t = document.createElement("span"); t.textContent = c[1];
+      var n = document.createElement("span"); n.className = "gf-cat-n"; n.textContent = counts[c[0]].toLocaleString();
+      lab.appendChild(cb); lab.appendChild(t); lab.appendChild(n);
+      gfCatPanel.appendChild(lab);
+    });
+    syncGfCatBtn();
+  }
+  function setGfCategories(list){
+    gfCategories = list;
+    try { localStorage.setItem("gfCategories", JSON.stringify(list)); } catch(e){}
+    syncGfCatBtn();
     if(googleListRendered){ applyGoogleSearchFilter(); activeListEl().scrollTop = 0; }
   }
-  gfCategorySelect.addEventListener("change", function(){ setGfCategory(gfCategorySelect.value); });
+  gfCatPanel.addEventListener("change", function(){
+    setGfCategories([].filter.call(gfCatPanel.querySelectorAll("input"), function(cb){ return cb.checked; }).map(function(cb){ return cb.value; }));
+  });
+  gfCatBtn.addEventListener("click", function(){
+    var open = gfCatPanel.hidden;
+    gfCatPanel.hidden = !open;
+    gfCatBtn.setAttribute("aria-expanded", String(open));
+  });
   buildGoogleGroups();
-  try { var savedCat = localStorage.getItem("gfCategory"); if(GF_CHIPS.some(function(c){ return c[0] === savedCat; })) gfCategory = savedCat; } catch(e){}
+  try {
+    var savedCats = JSON.parse(localStorage.getItem("gfCategories") || "[]");
+    if(Array.isArray(savedCats)) gfCategories = savedCats.filter(function(k){ return GF_CHIPS.some(function(c){ return c[0] === k; }); });
+  } catch(e){}
   buildGfChips();
   // ---------- Google Fonts: update / revert the family list (Ctrl+click / Alt+click on the Google tab) ----------
   // The embedded list is built offline by tools/build-google-list.py from the google/fonts repo. This finds the
@@ -6036,15 +6096,17 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   async function readNameInfoFromFile(file){
     try {
       var head = new DataView(await file.slice(0, 12).arrayBuffer());
-      var sig = head.getUint32(0), nameBytes = null, n, dir, i;
+      var sig = head.getUint32(0), nameBytes = null, fvarBytes = null, n, dir, i;
       if(sig === 0x774F4646){ // wOFF
         n = head.getUint16(12);
         dir = new DataView(await file.slice(44, 44 + 20 * n).arrayBuffer());
         for(i = 0; i < n; i++){
-          if(tagAt(dir, i * 20) !== "name") continue;
+          var tg = tagAt(dir, i * 20);
+          if(tg !== "name" && tg !== "fvar") continue;
           var off = dir.getUint32(i * 20 + 4), comp = dir.getUint32(i * 20 + 8), orig = dir.getUint32(i * 20 + 12);
           var raw = new Uint8Array(await file.slice(off, off + comp).arrayBuffer());
-          nameBytes = comp === orig ? raw : await inflateZlib(raw);
+          var bytes = comp === orig ? raw : await inflateZlib(raw);
+          if(tg === "name") nameBytes = bytes; else fvarBytes = bytes;
         }
       } else if(sig === 0x774F4632 || sig === 0x74746366){
         return null; // wOF2 (brotli) / ttc collection
@@ -6052,14 +6114,32 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
         n = head.getUint16(4);
         dir = new DataView(await file.slice(12, 12 + 16 * n).arrayBuffer());
         for(i = 0; i < n; i++){
-          if(tagAt(dir, i * 16) !== "name") continue;
+          var tg2 = tagAt(dir, i * 16);
+          if(tg2 !== "name" && tg2 !== "fvar") continue;
           var o2 = dir.getUint32(i * 16 + 8), l2 = dir.getUint32(i * 16 + 12);
-          nameBytes = new Uint8Array(await file.slice(o2, o2 + l2).arrayBuffer());
+          var b2 = new Uint8Array(await file.slice(o2, o2 + l2).arrayBuffer());
+          if(tg2 === "name") nameBytes = b2; else fvarBytes = b2;
         }
       }
-      return nameBytes ? parseNameTable(nameBytes) : null;
+      var info = nameBytes ? parseNameTable(nameBytes) : null;
+      if(info && fvarBytes){ try { var wr = parseFvarWght(fvarBytes); if(wr) info.wghtRange = wr; } catch(e2){} }
+      return info;
     } catch(e){ return null; }
   }
+  // The wght axis of a variable font ("fvar" table): -> "min max" for a FontFace weight descriptor, or null. Registering that
+  // range (instead of the single filename weight) is what lets the browser move along the axis for any requested weight.
+  function parseFvarWght(bytes){
+    var dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    var axesOff = dv.getUint16(4), count = dv.getUint16(8), size = dv.getUint16(10);
+    for(var i = 0; i < count; i++){
+      var q = axesOff + i * size;
+      if(String.fromCharCode(dv.getUint8(q), dv.getUint8(q + 1), dv.getUint8(q + 2), dv.getUint8(q + 3)) !== "wght") continue;
+      var mn = Math.round(dv.getInt32(q + 4) / 65536), mx = Math.round(dv.getInt32(q + 12) / 65536);
+      return mx > mn ? mn + " " + mx : null;
+    }
+    return null;
+  }
+  function faceWeight(v){ return v.wghtRange || String(v.weight); }
   // Weight / italic from the font's own style name (name ID 17, else 2), for files whose NAME didn't say it: the filename
   // parser (parseNameTokens) only knows spelled-out words, so "Foo-Bd.otf", "Foo-Md.otf" or "Foo.ttf" come out as
   // Regular. Reads the style name with the same idea (compound words first, spaces/hyphens ignored). Conservative by
@@ -6089,9 +6169,17 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     if(v.fileGroup){ targets.push(v.fileGroup.variants[0]); v.fileGroup.display = v.fileGroup.parent.display + " " + fileLabel({ weight: w, style: style }); }
     targets.forEach(function(t){
       t.weight = w; t.style = style;
-      if(t.face){ try { t.face.weight = String(w); t.face.style = style; } catch(e){} }   // a face already registered keeps matching
+      if(t.face){ try { t.face.weight = t.wghtRange || String(w); t.face.style = style; } catch(e){} }   // a face already registered keeps matching
     });
     return true;
+  }
+  // A variable file found by the scan: remember its wght range on the variant (and the file row's copy) and on any face already registered.
+  function applyWghtRange(v, range){
+    if(!range) return;
+    [v].concat(v.fileGroup ? [v.fileGroup.variants[0]] : []).forEach(function(t){
+      t.wghtRange = range;
+      if(t.face){ try { t.face.weight = range; } catch(e){} }
+    });
   }
   var famScanQueue = [], famScanActive = 0, famRegroupTimer = null;
   function queueFamilyScan(variants){
@@ -6103,7 +6191,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       (function(v){
         famScanActive++;
         getFileForVariant(v).then(readNameInfoFromFile).then(function(info){
-          if(info){ v.nameFamily = info.family || null; v.nameSub = info.subfamily || null; applyNameSubStyle(v); }
+          if(info){ v.nameFamily = info.family || null; v.nameSub = info.subfamily || null; applyNameSubStyle(v); applyWghtRange(v, info.wghtRange); }
         }).catch(function(){}).then(function(){
           famScanActive--;
           scheduleFamilyRegroup(famScanQueue.length === 0 && famScanActive === 0);
@@ -6925,6 +7013,11 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       refresh();
     });
     makeValueEditable(sizeInput, sizeVal, { decimals: 0 });
+    var boldC = role("bold");
+    if(boldC){
+      wireWeightControls(boldC, function(n){ pane.style.setProperty("--preview-weight", String(n)); }, refresh);
+      setWeightDefault(boldC, group);      // this pane's font, not the live one's
+    }
     var lineInput = role("line"), lineVal = role("line-val");
     lineInput.addEventListener("input", function(){
       var lh = (lineInput.value / 10).toFixed(1);
@@ -6961,6 +7054,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       });
     });
 
+    wireSliderRow(header.querySelector(".stage-header-sliders"));
     // Steppers (cloneNode drops listeners and ids): wire each slider's own ▲/▼ pair in this pane.
     [].forEach.call(header.querySelectorAll(".slider-group"), function(g){
       var r = g.querySelector('input[type="range"]'), st = g.querySelectorAll(".pair-step-btn");
@@ -6974,11 +7068,6 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
       (pressed ? onSet : offSet)();
       refresh();
     }
-    role("bold").addEventListener("click", function(){
-      togglePressed(role("bold"),
-        function(){ pane.style.setProperty("--preview-weight", "700"); },
-        function(){ pane.style.setProperty("--preview-weight", "400"); });
-    });
     role("italic").addEventListener("click", function(){
       togglePressed(role("italic"),
         function(){ pane.style.setProperty("--preview-style", "italic"); },
@@ -7281,6 +7370,83 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     if(window.stageEditor) window.stageEditor.refresh();
   }
 
+  // ---- Bold button: toggles between the active font's own weight and bold ----
+  // (There is no weight slider.) The default is the weight the browser shows for a plain 400 request from the group's files
+  // (groupDefaultWeight), re-applied on every font change; B switches to 700 (or the default if that is already 600+), and
+  // writes --preview-weight on its pane. A static font only has the weights it ships; a variable font follows continuously.
+  // Which weight the browser shows for a plain 400 request from this group's files: 400, else 500, else the nearest lighter
+  // one, else the nearest heavier (the CSS font-matching order), so a Light-only file starts at 300 and a Bold-only file at 700.
+  function groupDefaultWeight(g){
+    var ws = ((g && g.variants) || []).map(function(v){ return v.weight; }).filter(function(w){ return w > 0; });
+    if(!ws.length || ws.indexOf(400) !== -1) return 400;
+    if(ws.indexOf(500) !== -1) return 500;
+    var lighter = ws.filter(function(w){ return w < 400; }).sort(function(a, b){ return b - a; });
+    if(lighter.length) return lighter[0];
+    return ws.filter(function(w){ return w > 500; }).sort(function(a, b){ return a - b; })[0] || 400;
+  }
+  // boldBtn: this pane's B button; applyVar(n): writes --preview-weight on this pane; refresh(): editor refresh.
+  function wireWeightControls(boldBtn, applyVar, refresh){
+    var st = boldBtn._wght = { def: 400, cur: 400 };
+    function setW(n){
+      st.cur = n;
+      applyVar(n);
+      boldBtn.setAttribute("aria-pressed", String(n >= 600));
+      refresh();
+    }
+    st.set = setW;
+    boldBtn.addEventListener("click", function(){
+      setW(st.cur >= 600 ? (st.def < 600 ? st.def : 400) : Math.max(700, st.def));
+    });
+  }
+  function setWeightDefault(boldBtn, g){
+    var st = boldBtn && boldBtn._wght;
+    if(!st) return;
+    st.def = groupDefaultWeight(g);
+    st.set(st.def);
+  }
+
+  // Sample-stage slider row (live header and the compare pane's copy):
+  // - when the sliders would shrink to SLIDER_MIN_PX (the CSS min-width) the row goes "compact": the sliders are hidden and
+  //   only label, value box and steppers remain; it leaves compact mode once every slider would fit again with a little room to spare;
+  // - the scroll wheel over a value box (or its open text field) steps that slider up (wheel up) / down, one step per notch.
+  var SLIDER_MIN_PX = 30;
+  function wireSliderRow(row){
+    if(!row) return;
+    function update(){
+      if(!row.clientWidth) return;                       // hidden (e.g. Pair mode)
+      var groups = [].filter.call(row.children, function(c){ return c.classList.contains("slider-group"); });
+      if(!groups.length) return;
+      if(!row.classList.contains("compact")){
+        var r = row.querySelector('input[type="range"]');
+        if(r && r.getBoundingClientRect().width <= SLIDER_MIN_PX + 0.5) row.classList.add("compact");
+      } else {
+        var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+        var used = groups.reduce(function(a, g){ return a + g.getBoundingClientRect().width; }, 0) + gap * (groups.length - 1);
+        if(row.clientWidth >= used + groups.length * (SLIDER_MIN_PX + 1) + 16) row.classList.remove("compact");
+      }
+    }
+    if(window.ResizeObserver) new ResizeObserver(update).observe(row);
+    update();
+    var acc = 0;
+    row.addEventListener("wheel", function(e){
+      var box = e.target.closest ? e.target.closest(".val, .val-edit") : null;
+      if(!box) return;
+      var grp = box.closest(".slider-group"), r = grp && grp.querySelector('input[type="range"]');
+      if(!r) return;
+      e.preventDefault();
+      acc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+      var notches = Math.trunc(acc / 40);
+      if(!notches) return;
+      acc -= notches * 40;
+      var step = parseFloat(r.step) || 1, cur = parseFloat(r.value);
+      var v = Math.min(parseFloat(r.max), Math.max(parseFloat(r.min), cur - notches * step));
+      if(v === cur) return;
+      r.value = v;
+      r.dispatchEvent(new Event("input", { bubbles: true }));
+    }, { passive: false });
+  }
+  wireSliderRow(document.querySelector(".stage-header-sliders"));
+
   var sizeRange = $("sizeRange"), sizeVal = $("sizeVal");
   sizeRange.addEventListener("input", function(){
     document.documentElement.style.setProperty("--preview-size", sizeRange.value + "pt");
@@ -7321,12 +7487,8 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     btn.setAttribute("aria-pressed", String(pressed));
     (pressed ? onSet : offSet)();
   }
-  $("boldBtn").addEventListener("click", function(){
-    toggleBtn($("boldBtn"),
-      function(){ document.documentElement.style.setProperty("--preview-weight", "700"); },
-      function(){ document.documentElement.style.setProperty("--preview-weight", "400"); });
-    refreshEditor();
-  });
+  wireWeightControls($("boldBtn"),
+    function(n){ document.documentElement.style.setProperty("--preview-weight", String(n)); }, refreshEditor);
   $("italicBtn").addEventListener("click", function(){
     toggleBtn($("italicBtn"),
       function(){ document.documentElement.style.setProperty("--preview-style", "italic"); },
@@ -7519,7 +7681,7 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
   // Pair) or its data-role (the compare pane's cloned sliders have no ids).
   function sliderLabelTitle(r){
     var key = (r.id || "") + " " + (r.getAttribute("data-role") || "");
-    var name = /size/i.test(key) ? "Font Size" : /(lh|line)/i.test(key) ? "Line Height" : /(ls|char)/i.test(key) ? "Character / Letter Spacing" : "";
+    var name = /wght/i.test(key) ? "Font Weight" : /size/i.test(key) ? "Font Size" : /(lh|line)/i.test(key) ? "Line Height" : /(ls|char)/i.test(key) ? "Character / Letter Spacing" : "";
     return (name ? name + "\n" : "") + "Double-click to reset";
   }
   // Double-click any slider's label (Sample and Pair, Size and Line) to put
@@ -8503,6 +8665,27 @@ li.font-item.pinned:not(.active) .fname{ font-weight:600; }
     upBtn.addEventListener("click", function(){ bump(1); });
     downBtn.addEventListener("click", function(){ bump(-1); });
   }
+  // Scroll wheel over a value box (or its open text field) in the Pair toolbar steps that slider, one step per notch.
+  (function(){
+    var host = $("pairHeaderControls"), acc = 0;
+    if(!host) return;
+    host.addEventListener("wheel", function(e){
+      var box = e.target.closest ? e.target.closest(".val, .val-edit") : null;
+      if(!box) return;
+      var grp = box.closest(".slider-group"), r = grp && grp.querySelector('input[type="range"]');
+      if(!r) return;
+      e.preventDefault();
+      acc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+      var notches = Math.trunc(acc / 40);
+      if(!notches) return;
+      acc -= notches * 40;
+      var step = parseFloat(r.step) || 1, cur = parseFloat(r.value);
+      var v = Math.min(parseFloat(r.max), Math.max(parseFloat(r.min), cur - notches * step));
+      if(v === cur) return;
+      r.value = v;
+      r.dispatchEvent(new Event("input", { bubbles: true }));
+    }, { passive: false });
+  })();
   ["A", "B"].forEach(function(w){
     wirePairValueStepper($("pairSizeRange" + w), $("pairSizeUpBtn" + w), $("pairSizeDownBtn" + w));
     wirePairValueStepper($("pairLhRange" + w), $("pairLhUpBtn" + w), $("pairLhDownBtn" + w));
